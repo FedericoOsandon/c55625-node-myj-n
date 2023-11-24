@@ -1,0 +1,1 @@
+console.log('bienvenido al script de index')
