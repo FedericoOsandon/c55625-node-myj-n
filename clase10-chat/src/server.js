@@ -9,7 +9,7 @@ const { uploader } = require('./helpers/uploader.js')
 const { Server } = require('socket.io')
 
 const app = express()
-const PORT = 8080
+const PORT = 8080 || process.env.PORT
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
