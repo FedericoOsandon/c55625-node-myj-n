@@ -15,7 +15,7 @@ const PORT = 8080
 
 const connectDb = async () => {
     //
-    // await connect('mongodb+srv://Federico:Federico1@coderexample.hjzrdtr.mongodb.net/c55625?retryWrites=true&w=majority')
+    // await connect('mongodb+srv://<username>:<pasword>@coderexample.hjzrdtr.mongodb.net/c55625?retryWrites=true&w=majority')
     await connect('mongodb://127.0.0.1:27017/c55625')
     console.log('Base de datos conectada')
 }
