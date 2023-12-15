@@ -1,0 +1,11 @@
+GET http://localhost:8080/api/users
+
+###
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+    "first_name": "federico",
+    "last_name": "el mejor",
+    "email": "f@gmail..com"
+}
