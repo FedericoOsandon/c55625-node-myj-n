@@ -1,0 +1,21 @@
+<h1>Bienvenidos a Usuarios</h1>
+
+<div>
+    {{#each users}}
+    <li>
+        <strong>Nombre: </strong>{{this.first_name}} - 
+        <strong>Apellido: </strong>{{this.last_name}} - 
+        <strong>email: </strong>{{this.email}} - 
+        <strong>gender: </strong>{{this.email}} 
+    </li>
+    {{/each}}
+</div>
+<div class="text-center">
+    {{#if hasPrevPage}}
+        <a href="/users?numPage={{prevPage}}" class="btn btn-outline-dark">Anterior</a>
+    {{/if}}
+    <label>5</label>
+    {{#if hasNextPage}}
+        <a href="/users?numPage={{nextPage}}" class="btn btn-outline-dark">Siguiente</a>
+    {{/if}}
+</div>
