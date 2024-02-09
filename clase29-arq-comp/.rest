@@ -31,3 +31,18 @@ Content-Type: application/json
     "last_name": "el mejor",
     "email": "f@gmail..com"
 }
+###________________________________________Products________________
+GET http://localhost:8080/api/products
+###
+GET http://localhost:8080/api/products/65c56ece42e0e0fb9dafbe4c
+###
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "producto dos",
+    "category": "remeras",
+    "price": 5000,
+    "stock": 100,
+    "thumbnail": "imagen.prueba"
+}

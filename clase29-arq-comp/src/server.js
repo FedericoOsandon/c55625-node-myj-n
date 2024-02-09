@@ -2,6 +2,7 @@ const express       = require('express')
 const appRouter     = require('./routes')
 const { connectDb } = require('./config')
 const handlebars    = require('express-handlebars')
+const cors          = require('cors')
 
 const cookie        = require('cookie-parser')
 const { initializePassport } = require('./passport-jwt/passport.config')
@@ -13,6 +14,7 @@ const PORT = 8080
 connectDb()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(cors())
 // app.use(express.static(__dirname+'/public'))
 app.use(cookie())
 // config handlebars
