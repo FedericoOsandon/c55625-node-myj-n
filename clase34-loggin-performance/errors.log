@@ -1,0 +1,6 @@
+{"level":"warn","message":"alerta"}
+{"level":"warn","message":"alerta esto es un warning en el endpint de pruebas/logger"}
+{"level":"error","message":"alerta esto es un error en el endpint de pruebas/logger"}
+error: alerta esto es un error en el endpint de pruebas/logger
+fatal: alerta esto es un error en el endpint de pruebas/logger
+warning: alerta esto es un warning en el endpint de pruebas/logger
