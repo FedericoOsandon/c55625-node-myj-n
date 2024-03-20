@@ -16,6 +16,8 @@ const getUser = async(req,res)=> {
 
 const createUser = async (req,res)=>{
     const {first_name,last_name,password,email} = req.body
+
+    console.log(first_name, last_name, email, password)
     const newUser = {
         first_name: first_name,
         last_name: last_name,
