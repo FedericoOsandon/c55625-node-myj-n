@@ -15,7 +15,7 @@ subir la imagen a docker hub
 
 
 <!-- instalar kubectl -->
-- curl.exe -LO https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe
+- curl.exe -LO https://dl.k8s.io/release/v1.26.0/bin/windows/amd64/kubectl.exe
 
 <!-- Probar si tenemos kubectl instalado -->
 kubectl version --short (deprecado --short)

@@ -1,78 +1,64 @@
-const {Router } = require('express')
-const { authentication } = require('../../middlewars/auth.middleware')
-const { usersModel } = require('../../models/users.model')
+const { Router } = require('express')
+const { authentication } = require('../middleware/auth.middleware')
+const { UserManagerMongo } = require('../managers/Mongo/usersManager.mongo.js')
 
 const router = Router()
+const userServise = new UserManagerMongo()
 
-router.post('/register', async (req, res)=>{
-    const { first_name, last_name, email , password } = req.body
-    
-
-    if (first_name ==='' || password === "" || email === '' ) {
-        return res.send('faltan completar campos obligatorios')
+router.post('/register', async (req, res) => {
+    const {first_name, last_name, email, password } = req.body
+    if (!email || !password) {
+        return res.status(400).send({status: 'error', error: 'email y password son obligatorios'})
     }
 
-    const userFound = await usersModel.findOne({email})
+    const userFound = await userServise.getUser({email})
     if (userFound) {
-        return res.send({status: 'error', error: 'Ya existe el user'})
+        return res.status(401).send({status: 'error', error: 'El usuario ya existe'})
     }
+
     const newUser = {
-        first_name,
+        first_name, 
         last_name,
         email,
         password
     }
-    const result = await usersModel.create(newUser)
-    
-    res.send({
-        status: 'success',
-        payload: {
-            first_name: result.first_name,
-            last_name: result.last_name,
-            email: result.email,
-            _id: result._id
-        }
-    })
+
+    const result = await userServise.createUser(newUser)
+
+    res.send('usuario registrado correctamente')
 })
 
-router.post('/login', async (req, res)=>{
-    const {email , password } = req.body
-    // simulando consulta a la base de datos
-    if (email === '' || password === '') {
-        return res.send('todos los campos son obligatoris')
-    }
-    
-    const user = await usersModel.findOne({email})
-    if (!user) {
-        return res.send('email o contraseña equivocado')
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body
+    console.log(email, password)
+    const userFound = await userServise.getUser({email})
+    console.log(userFound)
+    if (!userFound) {
+        return res.send({stauts: 'error', error: 'no existe el usuario'})
     }
 
-    // validar si es el password
-    if (password !== user.password) {
-        return res.send('email o contraseña equivocado')
+    if (userFound.email !== email || userFound.password !== password) {
+        return res.send({stauts: 'error', error: 'el email o la contraseña no coinciden'})
     }
 
     req.session.user = {
-        user: user._id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        admin: true
+        email,
+        isAdmin: userFound.role === 'admin'
     }
-    res.redirect('/')
+
+    res.send('logueado correctamente')
 })
 
 router.get('/current', authentication, (req, res) => {
-    res.send('info sensible que solo puede ver el admin')
+    res.send('datos sensibles')
 })
 
-router.get('/logout', (req, res)=>{
-    req.session.destroy(err=>{
-        if (err) return res.send({status: 'error', error: err})
+router.get('/logout', (req, res)=> {
+    req.session.destroy( error => {
+        if (error) return res.send({status: 'error', error})
     })
-    res.send('logout exitoso')
+    res.send('logout')
 })
-
-
 
 module.exports = router
-

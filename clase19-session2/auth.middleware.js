@@ -1,13 +1,9 @@
-function authentication(req, res, next) {
-    // pedir el user a la base de datos 
+const authentication = (req, res, next) => {
+    if (req.session.user.email !== 'admin@coderhouse.com' || !req.session.user.isAdmin) {
+        return res.status(401).send('Error de autenticación')
+    }
 
-    if( !req.session?.user?.admin ) {
-        return res.status(401).send('error de autenticación')
-    } 
     next()
-
 }
 
-module.exports = {
-    authentication
-}
+module.exports = {authentication}
